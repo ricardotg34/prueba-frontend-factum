@@ -1,0 +1,9 @@
+* {
+  background-clip: border-box;
+}
+
+body {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #F0F6FF !important;
+}
