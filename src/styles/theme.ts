@@ -20,7 +20,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: '#006FFF'
+      main: '#BC1224'
     },
     action: {
       hover: "#E9E9E9"

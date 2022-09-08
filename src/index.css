@@ -7,3 +7,7 @@ body {
   min-height: 100vh;
   background-color: #F0F6FF !important;
 }
+
+#root {
+  min-height: inherit;
+}
