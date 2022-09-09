@@ -6,10 +6,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { ProductsService } from '../services/employees.service';
-import { alpha, styled } from '@mui/material';
+import { alpha, styled, TablePagination } from '@mui/material';
 import { formatDate } from '../utills';
 import { RenderedEmployee } from '../interfaces/employees.interface';
+
+interface ProductsTableProps {
+  employees: RenderedEmployee[];
+  rowsPerPage?: number;
+}
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -18,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     color: theme.palette.primary.contrastText,
   },
   [`&.${tableCellClasses.body}`]: {
-    ...theme.typography.h5,
+    ...theme.typography.body1,
     color: '#565657'
   },
 }));
@@ -33,22 +37,17 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export default function ProductsTable() {
-  const [employees, setEmployees] = useState<RenderedEmployee[]>([]);
-  const productsService = ProductsService.getInstance();
+export default function ProductsTable({ employees, rowsPerPage = 10 }: ProductsTableProps) {
+  const [renderedEmployees, setRenderedEmployees] = useState<RenderedEmployee[]>([])
+  const [page, setPage] = useState(0);
 
-  const getValues = async () => {
-    const data = await productsService.getEmployeesList();
-    const renderedEmployees = data.data.employees.map<RenderedEmployee>(({ birthday, ...employee}) => ({
-      ...employee,
-      birthday: new Date(birthday)
-    }));
-    setEmployees(renderedEmployees);
-  }
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
 
   useEffect(() => {
-    getValues()
-  }, [])
+    setRenderedEmployees(employees.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage))
+  }, [page, employees])
 
   return (
     <TableContainer component={Paper}>
@@ -62,7 +61,7 @@ export default function ProductsTable() {
           </StyledTableRow>
         </TableHead>
         <TableBody>
-          {employees.map((row) => (
+          {renderedEmployees.map((row) => (
             <StyledTableRow
               key={row.id}
             >
@@ -76,6 +75,15 @@ export default function ProductsTable() {
           ))}
         </TableBody>
       </Table>
+      <TablePagination
+          rowsPerPageOptions={[rowsPerPage]}
+          labelRowsPerPage="Empleados por página"
+          component="div"
+          count={employees.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+        />
     </TableContainer>
   );
 }

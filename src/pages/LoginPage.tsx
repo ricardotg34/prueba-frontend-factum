@@ -1,6 +1,15 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
 const LoginPage = () => {
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
+  const { login } = useContext(AppContext);
+
+  const handleLogin = () => {
+    login(user, password)
+  };
   return (
     <Box
       display="flex"
@@ -9,7 +18,8 @@ const LoginPage = () => {
       alignItems="center"
       justifyContent="center"
       sx={{
-        background: (theme) => `linear-gradient(-70deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark});`
+        background: (theme) =>
+          `linear-gradient(-70deg, ${theme.palette.primary.main}, ${theme.palette.primary.dark});`,
       }}
     >
       <Box
@@ -23,13 +33,30 @@ const LoginPage = () => {
         minWidth={500}
         bgcolor="white"
       >
-        <Typography variant="h3" textAlign="center" sx={{ paddingBottom: 8 }}>Iniciar Sesión</Typography>
-        <TextField label="Usuario" variant="standard" placeholder="Tu nombre de usuario" />
-        <TextField label="Contraseña" variant="standard" placeholder="Tu contraseña" />
-        <Button variant="contained" color="primary" sx={{ marginTop: 4 }} >Ingresar</Button>
+        <Typography variant="h3" textAlign="center" sx={{ paddingBottom: 8 }}>
+          Iniciar Sesión
+        </Typography>
+        <TextField
+          label="Usuario"
+          variant="standard"
+          placeholder="Tu nombre de usuario"
+          value={user}
+          onChange={(e) => setUser(e.target.value)}
+        />
+        <TextField
+          label="Contraseña"
+          variant="standard"
+          placeholder="Tu contraseña"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button variant="contained" color="primary" sx={{ marginTop: 4 }} onClick={handleLogin}>
+          Ingresar
+        </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
-export default LoginPage
+export default LoginPage;

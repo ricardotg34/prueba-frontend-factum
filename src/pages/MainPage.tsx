@@ -11,7 +11,9 @@ const MainPage = (props: Props) => {
         <Toolbar>
         </Toolbar>
       </AppBar>
-      <Outlet />
+      <Container maxWidth="lg">
+        <Outlet />
+      </Container>
     </>
   )
 }
