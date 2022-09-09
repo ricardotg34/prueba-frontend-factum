@@ -3,13 +3,14 @@ import { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 import BasicDatePicker from '../components/DatePicker'
 import ProductsTable from '../components/EmployeesTable'
+import { useFormInput } from '../hooks/useFormInput';
 import { RenderedEmployee } from '../interfaces/employees.interface';
 import { ProductsService } from '../services/employees.service';
 
 const EmployeesPage = () => {
   const [birthDate, setBirthDate] = useState<Dayjs | null>(null);
-  const [name, setName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [name, handleChangeName, clearName] = useFormInput('');
+  const [lastName, handleChangeLastName, clearLastName] = useFormInput('');
   const [employees, setEmployees] = useState<RenderedEmployee[]>([]);
   const productsService = ProductsService.getInstance();
 
@@ -40,9 +41,9 @@ const EmployeesPage = () => {
       })
       if (res.success) {
         getValues();
-        setBirthDate(null)
-        setName('')
-        setLastName('')
+        setBirthDate(null);
+        clearName();
+        clearLastName();
       }
     } catch (error) {
       console.log('Hubo un error')
@@ -74,7 +75,7 @@ const EmployeesPage = () => {
             label="Nombre"
             inputProps={{ maxLength: 30 }}
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={handleChangeName}
             required
           />
           <TextField
@@ -82,7 +83,7 @@ const EmployeesPage = () => {
             label="Apellidos"
             inputProps={{ maxLength: 30 }}
             value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
+            onChange={handleChangeLastName}
             required
           />
           <BasicDatePicker value={birthDate} onChange={handleChangeBirthDate} />

@@ -1,10 +1,11 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
+import { useFormInput } from "../hooks/useFormInput";
 
 const LoginPage = () => {
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, handleChangeUser] = useFormInput("");
+  const [password, handleChangePassword] = useFormInput("");
   const { login } = useContext(AppContext);
 
   const handleLogin = () => {
@@ -41,7 +42,7 @@ const LoginPage = () => {
           variant="standard"
           placeholder="Tu nombre de usuario"
           value={user}
-          onChange={(e) => setUser(e.target.value)}
+          onChange={handleChangeUser}
         />
         <TextField
           label="Contraseña"
@@ -49,7 +50,7 @@ const LoginPage = () => {
           placeholder="Tu contraseña"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChangePassword}
         />
         <Button variant="contained" color="primary" sx={{ marginTop: 4 }} onClick={handleLogin}>
           Ingresar
