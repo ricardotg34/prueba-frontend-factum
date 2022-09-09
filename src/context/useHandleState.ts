@@ -15,6 +15,11 @@ export const useHandleState = () => {
     }
   }
 
+  const logout = () => {
+    dispatch({ type: 'logout'});
+    navigate('/login');
+  }
+
   const setMessage = (type: MessageInfo['type'], message: MessageInfo['message']) => {
     dispatch({ type: 'setMessage', payload: {
       message,
@@ -25,6 +30,7 @@ export const useHandleState = () => {
   return {
     state,
     login,
+    logout,
     setMessage
   }
 }
