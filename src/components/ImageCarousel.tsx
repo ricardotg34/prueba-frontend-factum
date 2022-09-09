@@ -21,6 +21,8 @@ const ImageCarousel = (props: Props) => {
       sx={{
         background: `url(${props.images[currentImageIndex!].src})`,
         backgroundSize: "contain",
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
         position:"relative",
         width:"80%",
         height: 400,

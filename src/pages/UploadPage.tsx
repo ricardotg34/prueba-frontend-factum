@@ -44,6 +44,7 @@ const UploadPage = () => {
 
   const onClickUpload = () => {
     uploadImages(files);
+    setFiles([]);
     handleClose();
   };
 
@@ -61,7 +62,7 @@ const UploadPage = () => {
             onUploadFiles={handleAddFile}
             onRemoveFile={handleRemoveFile}
           />
-          <Button variant="contained" fullWidth onClick={onClickUpload}>
+          <Button variant="contained" fullWidth onClick={onClickUpload} disabled={files.length < 1}>
             Subir
           </Button>
         </DialogContent>

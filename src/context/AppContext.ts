@@ -13,6 +13,7 @@ export interface AppState {
   userLogged?: string;
   message: MessageInfo | null;
   images: ImageInfo[];
+  isLoading?: boolean;
 }
 
 export const initialState: AppState = {

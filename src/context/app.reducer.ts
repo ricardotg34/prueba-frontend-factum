@@ -9,11 +9,16 @@ type ActionReducer = {
 } | {
   type: 'logout'
 } | {
+  type: 'clearMessage'
+} | {
   type: 'setMessage',
   payload: MessageInfo;
 } | {
   type: 'uploadImages',
   payload: ImageInfo[]
+} | {
+  type: 'toggleLoading',
+  payload: boolean
 }
 
 export const appReducer = (state: AppState, action: ActionReducer): AppState => {
@@ -33,10 +38,21 @@ export const appReducer = (state: AppState, action: ActionReducer): AppState => 
         ...state,
         message: action.payload
       }
+    case 'clearMessage': {
+      return {
+        ...state,
+        message: null
+      }
+    }
     case 'uploadImages':
       return {
         ...state,
-        images: action.payload
+        images: [...state.images, ...action.payload]
+      }
+    case 'toggleLoading':
+      return {
+        ...state,
+        isLoading: action.payload
       }
     default:
       return { ...state }

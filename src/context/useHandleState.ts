@@ -10,6 +10,7 @@ export const useHandleState = () => {
   const login = (username: string, password: string) => {
     if(username === 'RicardoTG' && password === "123456") {
       dispatch({ type: 'login', payload: { username } })
+      dispatch({ type: 'clearMessage' })
       navigate('/')
     } else {
       setMessage('error', 'Usuario o contraseña incorrectos')
@@ -27,9 +28,13 @@ export const useHandleState = () => {
       type
     } })
   }
-  
+
   const uploadImages = (images: ImageInfo[]) => {
     dispatch({ type: 'uploadImages', payload: images})
+  }
+
+  const setIsLoading = (state: boolean) => {
+    dispatch({ type: 'toggleLoading', payload: state })
   }
 
   return {
@@ -37,6 +42,7 @@ export const useHandleState = () => {
     login,
     logout,
     uploadImages,
-    setMessage
+    setMessage,
+    setIsLoading
   }
 }

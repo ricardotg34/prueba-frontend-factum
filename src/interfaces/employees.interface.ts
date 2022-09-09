@@ -13,7 +13,7 @@ export interface Employee {
   id:        number;
   name:      string;
   last_name: string;
-  birthday:  number;
+  birthday:  string;
 }
 
 export type RenderedEmployee = Omit<Employee, 'birthday'> & { birthday: Date }

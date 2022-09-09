@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, TextField, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { useFormInput } from "../hooks/useFormInput";
@@ -6,7 +6,7 @@ import { useFormInput } from "../hooks/useFormInput";
 const LoginPage = () => {
   const [user, handleChangeUser] = useFormInput("");
   const [password, handleChangePassword] = useFormInput("");
-  const { login } = useContext(AppContext);
+  const { login, state } = useContext(AppContext);
 
   const handleLogin = () => {
     login(user, password)
@@ -52,6 +52,9 @@ const LoginPage = () => {
           value={password}
           onChange={handleChangePassword}
         />
+        {state.message && <Alert variant="outlined" severity={state.message.type}>
+          {state.message.message}
+        </Alert>}
         <Button variant="contained" color="primary" sx={{ marginTop: 4 }} onClick={handleLogin}>
           Ingresar
         </Button>
