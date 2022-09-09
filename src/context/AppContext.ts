@@ -26,5 +26,6 @@ export const AppContext = createContext<AppContext>({
   login: () => {},
   setMessage: () => {},
   logout: () => {},
-  uploadImages: () => {}
+  uploadImages: () => {},
+  setIsLoading: () => {}
 })
