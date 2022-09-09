@@ -1,5 +1,6 @@
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import { ImageInfo } from "../interfaces/ImageInfo.interface";
 import { appReducer } from "./app.reducer";
 import { initialState, MessageInfo } from "./AppContext";
 
@@ -26,11 +27,16 @@ export const useHandleState = () => {
       type
     } })
   }
+  
+  const uploadImages = (images: ImageInfo[]) => {
+    dispatch({ type: 'uploadImages', payload: images})
+  }
 
   return {
     state,
     login,
     logout,
+    uploadImages,
     setMessage
   }
 }
