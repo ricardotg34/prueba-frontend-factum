@@ -1,0 +1,1 @@
+export interface ImageInfo { file: File | null; src: string }
